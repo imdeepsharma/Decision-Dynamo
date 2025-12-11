@@ -1,0 +1,5 @@
+{
+  "name": "Decision Dynamo",
+  "description": "Transform chaos into clarity, one meeting at a time. Extract decisions, action items, and risks using Gemini 3 Pro multimodal capabilities.",
+  "requestFramePermissions": []
+}

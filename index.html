@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decision Dynamo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom scrollbar for a cleaner look */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c7c7cc;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a1a1aa;
+      }
+
+      @media print {
+        @page {
+          margin: 1cm;
+          size: auto;
+        }
+        
+        body {
+          background: white;
+          color: black;
+        }
+
+        /* Hide everything by default */
+        body > * {
+          display: none;
+        }
+
+        /* Show the root */
+        #root {
+          display: block;
+        }
+
+        /* Explicitly hide navigation, video, and controls during print */
+        nav, 
+        .video-section, 
+        .no-print, 
+        button,
+        .print-hide {
+          display: none !important;
+        }
+
+        /* Expand the clarity sheet */
+        .clarity-sheet-container {
+          display: block !important;
+          height: auto !important;
+          max-height: none !important;
+          overflow: visible !important;
+          border: none !important;
+          box-shadow: none !important;
+          width: 100% !important;
+          margin: 0 !important;
+        }
+
+        .clarity-content-area {
+          overflow: visible !important;
+          height: auto !important;
+          padding: 0 !important;
+          background: white !important;
+        }
+
+        /* Force display of all tab contents */
+        .tab-content {
+          display: block !important;
+          margin-bottom: 2rem;
+          page-break-inside: avoid;
+        }
+        
+        /* Ensure hidden tabs are shown */
+        .tab-content.hidden {
+          display: block !important;
+        }
+        
+        /* Add section headers for print that might be hidden otherwise */
+        .print-section-header {
+          display: block !important;
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+          color: #1e293b;
+          border-bottom: 2px solid #e2e8f0;
+          page-break-after: avoid;
+        }
+
+        /* Improve typography for print */
+        p, li, td {
+          font-size: 11pt;
+          line-height: 1.5;
+        }
+        
+        h2, h3, h4 {
+          color: black !important;
+        }
+      }
+      
+      .print-section-header {
+        display: none;
+      }
+
+      @keyframes scan {
+        0% { transform: translateY(-100%); opacity: 0; }
+        50% { opacity: 0.5; }
+        100% { transform: translateY(100%); opacity: 0; }
+      }
+      .animate-scan {
+        animation: scan 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+      
+      .animate-fade-in-up {
+        animation: fadeInUp 0.5s ease-out;
+      }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-indigo-100 selection:text-indigo-700">
+    <div id="root"></div>
+  </body>
+</html>
