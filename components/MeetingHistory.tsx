@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { MeetingRecord } from '../types';
-import { Clock, Calendar, ChevronRight, FileVideo } from 'lucide-react';
+import { Clock, Calendar, ChevronRight, FileVideo, ShieldAlert } from 'lucide-react';
 
 interface MeetingHistoryProps {
   history: MeetingRecord[];
@@ -13,8 +14,8 @@ export const MeetingHistory: React.FC<MeetingHistoryProps> = ({ history, onSelec
     <div className="max-w-4xl mx-auto mt-8 animate-fade-in-up">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Past Meetings</h2>
-          <p className="text-slate-500 mt-1">Review decisions from previous sessions.</p>
+          <h2 className="text-2xl font-bold text-slate-800">Session History</h2>
+          <p className="text-slate-500 mt-1">Review clarity sheets from your current browser session.</p>
         </div>
         <button 
           onClick={onBack}
@@ -24,13 +25,21 @@ export const MeetingHistory: React.FC<MeetingHistoryProps> = ({ history, onSelec
         </button>
       </div>
 
+      {/* Persistence Notice */}
+      <div className="mb-6 p-4 bg-amber-50 border border-amber-100 rounded-xl flex items-start gap-3">
+        <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+        <p className="text-xs text-amber-800 leading-relaxed">
+          <span className="font-bold">Important:</span> These results are stored only in your browser's session memory. If you close this tab or window, this history will be <span className="font-bold uppercase tracking-tighter">purged permanently</span>. Download a PDF if you need to keep a copy.
+        </p>
+      </div>
+
       {history.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm">
           <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
             <Clock className="w-8 h-8 text-slate-300" />
           </div>
-          <h3 className="text-lg font-medium text-slate-800 mb-1">No History Yet</h3>
-          <p className="text-slate-500">Analyze your first meeting to see it here.</p>
+          <h3 className="text-lg font-medium text-slate-800 mb-1">No Session History</h3>
+          <p className="text-slate-500">Analyze a meeting to see results here during this session.</p>
         </div>
       ) : (
         <div className="grid gap-4">

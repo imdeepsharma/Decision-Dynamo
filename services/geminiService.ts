@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { MeetingAnalysis } from "../types";
 import { fileToBase64 } from "../utils";
@@ -77,12 +78,9 @@ const RESPONSE_SCHEMA = {
 };
 
 export const analyzeMeeting = async (mediaFile: File, slideFile?: File): Promise<MeetingAnalysis> => {
-  if (!process.env.API_KEY) {
-    throw new Error("API Key is missing.");
-  }
-
+  // Always create a fresh instance to ensure the latest API key is used
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  const modelId = 'gemini-2.5-flash';
+  const modelId = 'gemini-3-pro-preview';
 
   const mediaBase64 = await fileToBase64(mediaFile);
   
@@ -123,8 +121,14 @@ export const analyzeMeeting = async (mediaFile: File, slideFile?: File): Promise
     if (!text) throw new Error("No response from Gemini");
     
     return JSON.parse(text) as MeetingAnalysis;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini Analysis Error:", error);
+    
+    // Check for the specific error that indicates API key selection is needed
+    if (error.message?.includes("Requested entity was not found")) {
+      throw new Error("API_KEY_INVALID");
+    }
+    
     throw error;
   }
 };
